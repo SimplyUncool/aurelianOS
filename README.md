@@ -47,9 +47,13 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Support
 
-If you want to support aurelianOS development, donations are welcome.
+aurelianOS is being developed solo, and lack of motivation is an issue. If you would like to help out with this project then consider donating.
 
-Cryptocurrency donation information will be published here.
+**Bitcoin Address:** bc1q8l5tcp6rx6q06qj323dqt4q3ywsh7x6wus2jjn  
+**Litecoin Address:** ltc1qg3rmw5zh4k47wqm30utsv7hqaqalsk3e5uhaw7  
+**BNB Smart Chain Address:** 0x2321cBfFA5CaA335F10C71Eb078D61E662E201Be  
+**USDT (BEP-20) Address:** 0x2321cBfFA5CaA335F10C71Eb078D61E662E201Be  
+**USDC (Solana) Address:** F9fdD2r9PatQds68wHjfSCachHndt91wefrxD5WPFkJs  
 
 ## License
 
