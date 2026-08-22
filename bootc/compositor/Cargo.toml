@@ -1,0 +1,7 @@
+[package]
+name = "compositor"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+smithay = { version = "0.7.0", features = ["backend_winit", "renderer_gl", "wayland_frontend"] }

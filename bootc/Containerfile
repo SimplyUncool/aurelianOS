@@ -1,0 +1,13 @@
+FROM quay.io/fedora/fedora-bootc:latest
+
+RUN useradd -m -G wheel -s /bin/bash mohamed && \
+    echo 'mohamed:dev' | chpasswd
+
+RUN echo 'aurelianOS' > /etc/hostname && \
+    ln -sf /etc/hostname /etc/HOSTNAME
+
+RUN printf 'Welcome to aurelianOS\n' > /etc/issue
+
+RUN mkdir -p /etc/systemd/system/getty@tty1.service.d && \
+    printf '[Service]\nExecStart=\nExecStart=-/sbin/agetty --autologin mohamed --noclear %%I $TERM\n' \
+    > /etc/systemd/system/getty@tty1.service.d/autologin.conf
