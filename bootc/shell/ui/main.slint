@@ -1,0 +1,69 @@
+import "../../../assets/fonts/Inter-Regular.ttf";
+import "../../../assets/fonts/Inter-Medium.ttf";
+import "../../../assets/fonts/Inter-SemiBold.ttf";
+
+import { Theme } from "theme.slint";
+import { Panel } from "panel.slint";
+import { Dock } from "dock.slint";
+import { Launcher } from "launcher.slint";
+
+export component MainWindow inherits Window {
+    title: "aurelianOS";
+
+    full-screen: true;
+
+    default-font-family: "Inter";
+    default-font-size: 14px;
+    default-font-weight: 400;
+
+    property<bool> launcher-open: false;
+
+    background: #00000000;
+
+    Image {
+        source: @image-url("../../../assets/wallpaper.jpg");
+
+        width: parent.width;
+        height: parent.height;
+
+        image-fit: cover;
+    }
+
+    // Keep the wallpaper almost untouched.
+    Rectangle {
+        width: parent.width;
+        height: parent.height;
+
+        background: #00000005;
+    }
+
+    Panel {
+        x: 0px;
+        y: 0px;
+
+        width: parent.width;
+        height: 72px;
+    }
+
+    Launcher {
+        visible: launcher-open;
+
+        x: (parent.width - self.width) / 2;
+
+        // Keeps the launcher above the dock while remaining responsive.
+        y: parent.height - self.height - 112px;
+
+        close-requested => {
+            root.launcher-open = false;
+        }
+    }
+
+    Dock {
+        x: (parent.width - self.width) / 2;
+        y: parent.height - self.height - 28px;
+
+        apps-clicked => {
+            root.launcher-open = !root.launcher-open;
+        }
+    }
+}

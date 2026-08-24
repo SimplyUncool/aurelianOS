@@ -1,0 +1,97 @@
+import { Theme } from "theme.slint";
+
+component GlassPill inherits Rectangle {
+    border-radius: 21px;
+
+    background: Theme.glass;
+
+    border-width: 1px;
+    border-color: Theme.border;
+}
+
+export component Panel inherits Rectangle {
+    background: transparent;
+
+    GlassPill {
+        x: 24px;
+        y: 16px;
+        width: 168px;
+        height: 42px;
+
+        Text {
+            x: 17px;
+            y: 0px;
+            width: parent.width - 34px;
+            height: parent.height;
+
+            text: "aurelianOS";
+
+            color: Theme.text;
+            font-size: 14px;
+            font-weight: 600;
+
+            vertical-alignment: center;
+        }
+    }
+
+    GlassPill {
+        x: (parent.width - 178px) / 2;
+        y: 16px;
+
+        width: 178px;
+        height: 42px;
+
+        Text {
+            width: parent.width;
+            height: parent.height;
+
+            text: "22:00";
+
+            color: Theme.text-secondary;
+            font-size: 13px;
+            font-weight: 500;
+
+            horizontal-alignment: center;
+            vertical-alignment: center;
+        }
+    }
+
+    GlassPill {
+        x: parent.width - 252px;
+        y: 16px;
+
+        width: 228px;
+        height: 42px;
+
+        HorizontalLayout {
+            x: 17px;
+            y: 0px;
+
+            width: parent.width - 34px;
+            height: parent.height;
+
+            spacing: 16px;
+
+            Text {
+                text: "Wi-Fi";
+                color: Theme.text-secondary;
+                font-size: 12px;
+                vertical-alignment: center;
+            }
+
+            Text {
+                text: "87%";
+                color: Theme.text-secondary;
+                font-size: 12px;
+                vertical-alignment: center;
+            }
+
+            Text {
+                text: "●";
+                color: Theme.text-secondary;
+                font-size: 9px;
+                vertical-alignment: center;
+            }
+        }
+    }
+}

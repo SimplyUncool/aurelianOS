@@ -1,0 +1,212 @@
+import { Theme } from "theme.slint";
+
+component AppItem inherits Rectangle {
+    in property<image> icon;
+    in property<string> name;
+
+    width: 92px;
+    height: 88px;
+
+    border-radius: 15px;
+
+    area := TouchArea {
+        width: parent.width;
+        height: parent.height;
+
+        mouse-cursor: pointer;
+    }
+
+    background:
+        area.pressed
+            ? Theme.pressed
+            : area.has-hover
+                ? Theme.hover
+                : #ffffff00;
+
+    Image {
+        source: icon;
+
+        width: 32px;
+        height: 32px;
+
+        x: (parent.width - self.width) / 2;
+        y: 11px;
+
+        image-fit: contain;
+        colorize: Theme.text;
+    }
+
+    Text {
+        x: 0px;
+        y: 52px;
+
+        width: parent.width;
+        height: 22px;
+
+        text: name;
+
+        color: Theme.text-secondary;
+        font-size: 12px;
+        font-weight: 500;
+
+        horizontal-alignment: center;
+        vertical-alignment: center;
+    }
+}
+
+export component Launcher inherits Rectangle {
+    callback close-requested();
+
+    width: 520px;
+    height: 350px;
+
+    border-radius: Theme.radius-large;
+
+    background: Theme.glass-strong;
+
+    border-width: 1px;
+    border-color: Theme.border-strong;
+
+    Text {
+        x: 24px;
+        y: 20px;
+
+        text: "Applications";
+
+        color: Theme.text;
+        font-size: 19px;
+        font-weight: 600;
+    }
+
+    Rectangle {
+        x: parent.width - 50px;
+        y: 15px;
+
+        width: 32px;
+        height: 32px;
+
+        border-radius: 10px;
+
+        background:
+            close-area.has-hover
+                ? Theme.hover
+                : #ffffff00;
+
+        Text {
+            width: parent.width;
+            height: parent.height;
+
+            text: "×";
+
+            color: Theme.text-secondary;
+            font-size: 18px;
+
+            horizontal-alignment: center;
+            vertical-alignment: center;
+        }
+
+        close-area := TouchArea {
+            width: parent.width;
+            height: parent.height;
+
+            mouse-cursor: pointer;
+
+            clicked => {
+                root.close-requested();
+            }
+        }
+    }
+
+    Rectangle {
+        x: 24px;
+        y: 62px;
+
+        width: parent.width - 48px;
+        height: 44px;
+
+        border-radius: 13px;
+
+        background:
+            search-area.has-hover
+                ? Theme.field-hover
+                : Theme.field;
+
+        border-width: 1px;
+        border-color: Theme.border;
+
+        Image {
+            source: @image-url("../../../assets/icons/apps.svg");
+
+            x: 12px;
+            y: 11px;
+
+            width: 21px;
+            height: 21px;
+
+            image-fit: contain;
+            colorize: Theme.text-muted;
+        }
+
+        Text {
+            x: 43px;
+            y: 0px;
+
+            width: parent.width - 55px;
+            height: parent.height;
+
+            text: "Search applications";
+
+            color: Theme.text-muted;
+            font-size: 12px;
+
+            vertical-alignment: center;
+        }
+
+        search-area := TouchArea {
+            width: parent.width;
+            height: parent.height;
+
+            mouse-cursor: text;
+        }
+    }
+
+    AppItem {
+        x: 35px;
+        y: 123px;
+
+        icon: @image-url("../../../assets/icons/world-www.svg");
+        name: "Browser";
+    }
+
+    AppItem {
+        x: 137px;
+        y: 123px;
+
+        icon: @image-url("../../../assets/icons/folder.svg");
+        name: "Files";
+    }
+
+    AppItem {
+        x: 239px;
+        y: 123px;
+
+        icon: @image-url("../../../assets/icons/settings.svg");
+        name: "Settings";
+    }
+
+    AppItem {
+        x: 341px;
+        y: 123px;
+
+        icon: @image-url("../../../assets/icons/terminal-2.svg");
+        name: "Terminal";
+    }
+
+    AppItem {
+        x: 35px;
+        y: 217px;
+
+        icon: @image-url("../../../assets/icons/apps.svg");
+        name: "Applications";
+    }
+}

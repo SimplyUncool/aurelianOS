@@ -1,0 +1,103 @@
+import { Theme } from "theme.slint";
+
+component DockItem inherits Rectangle {
+    in property<image> icon;
+
+    callback clicked();
+
+    width: 52px;
+    height: 52px;
+
+    area := TouchArea {
+        width: parent.width;
+        height: parent.height;
+
+        mouse-cursor: pointer;
+
+        clicked => {
+            root.clicked();
+        }
+    }
+
+    background:
+        area.pressed
+            ? #ffffff28
+            : area.has-hover
+                ? #ffffff16
+                : #ffffff00;
+
+    border-radius: 13px;
+
+    Image {
+        source: icon;
+
+        width: 28px;
+        height: 28px;
+
+        x: (parent.width - self.width) / 2;
+        y: (parent.height - self.height) / 2;
+
+        image-fit: contain;
+        colorize: #ffffff;
+    }
+}
+
+export component Dock inherits Rectangle {
+    callback apps-clicked();
+
+    width: 286px;
+    height: 62px;
+
+    border-radius: 20px;
+
+    // Much quieter than the previous dock.
+    background: #ffffff10;
+    border-width: 1px;
+    border-color: #ffffff24;
+
+    HorizontalLayout {
+        x: 7px;
+        y: 5px;
+
+        width: parent.width - 14px;
+        height: parent.height - 10px;
+
+        spacing: 2px;
+
+        DockItem {
+            icon: @image-url("../../../assets/icons/apps.svg");
+
+            clicked => {
+                root.apps-clicked();
+            }
+        }
+
+        DockItem {
+            icon: @image-url("../../../assets/icons/folder.svg");
+
+            clicked => {
+            }
+        }
+
+        DockItem {
+            icon: @image-url("../../../assets/icons/world-www.svg");
+
+            clicked => {
+            }
+        }
+
+        DockItem {
+            icon: @image-url("../../../assets/icons/settings.svg");
+
+            clicked => {
+            }
+        }
+
+        DockItem {
+            icon: @image-url("../../../assets/icons/terminal-2.svg");
+
+            clicked => {
+            }
+        }
+    }
+}
