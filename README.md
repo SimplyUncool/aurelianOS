@@ -174,11 +174,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 aurelianOS is developed independently. If you want to support development, donations are appreciated and help fund hardware, testing, hosting, and other project costs.
 
-**Bitcoin Address:** bc1q8l5tcp6rx6q06qj323dqt4q3ywsh7x6wus2jjn
-**Litecoin Address:** ltc1qg3rmw5zh4k47wqm30utsv7hqaqalsk3e5uhaw7
-**BNB Smart Chain Address:** 0x2321cBfFA5CaA335F10C71Eb078D61E662E201Be
-**USDT (BEP-20) Address:** 0x2321cBfFA5CaA335F10C71Eb078D61E662E201Be
-**USDC (Solana) Address:** F9fdD2r9PatQds68wHjfSCachHndt91wefrxD5WPFkJs
+**Bitcoin Address:** bc1q8l5tcp6rx6q06qj323dqt4q3ywsh7x6wus2jjn  
+**Litecoin Address:** ltc1qg3rmw5zh4k47wqm30utsv7hqaqalsk3e5uhaw7  
+**BNB Smart Chain Address:** 0x2321cBfFA5CaA335F10C71Eb078D61E662E201Be  
+**USDT (BEP-20) Address:** 0x2321cBfFA5CaA335F10C71Eb078D61E662E201Be  
+**USDC (Solana) Address:** F9fdD2r9PatQds68wHjfSCachHndt91wefrxD5WPFkJs  
 
 ## Licensing
 
