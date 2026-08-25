@@ -1,0 +1,574 @@
+---
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta
+            name="description"
+            content="aurelianOS — an operating system built differently."
+        />
+        <meta name="theme-color" content="#111318" />
+        <title>aurelianOS</title>
+    </head>
+
+    <body>
+        <header class="navbar">
+            <a href="/" class="brand">
+                <img
+                    src="/branding/aurelianOS-Logo.svg"
+                    alt=""
+                    class="brand-logo"
+                />
+                <span>aurelianOS</span>
+            </a>
+
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+                <a
+                    href="https://github.com/simplyuncool/aurelianos-website"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    GitHub
+                </a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="ambient ambient-one"></div>
+                <div class="ambient ambient-two"></div>
+
+                <div class="hero-content">
+                    <div class="logo-container">
+                        <div class="logo-halo"></div>
+
+                        <img
+                            src="/branding/aurelianOS-Logo.svg"
+                            alt="aurelianOS logo"
+                            class="hero-logo"
+                        />
+                    </div>
+
+                    <p class="eyebrow">A new kind of operating system</p>
+
+                    <h1>aurelianOS</h1>
+
+                    <p class="hero-description">
+                        A modern operating system built with simplicity,
+                        control, and design in mind.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#download" class="button primary">
+                            Download
+                        </a>
+
+                        <a
+                            href="https://github.com/simplyuncool/aurelianos"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="button secondary"
+                        >
+                            View on GitHub
+                        </a>
+                    </div>
+                </div>
+
+                <div class="scroll-indicator">
+                    <span></span>
+                </div>
+            </section>
+
+            <section id="features" class="placeholder-section">
+                <p>More coming soon.</p>
+            </section>
+        </main>
+    </body>
+</html>
+
+<style>
+    .navbar {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 10;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 22px 32px;
+
+        background: linear-gradient(
+            to bottom,
+            rgba(17, 19, 24, 0.82),
+            rgba(17, 19, 24, 0.3)
+        );
+
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+    }
+
+    .brand-logo {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+        opacity: 0.9;
+    }
+
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.58);
+    }
+
+    nav a {
+        transition:
+            color 200ms ease,
+            opacity 200ms ease;
+    }
+
+    nav a:hover {
+        color: rgba(255, 255, 255, 0.95);
+    }
+
+    .hero {
+        position: relative;
+
+        min-height: 100vh;
+        min-height: 100svh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        overflow: hidden;
+        padding: 120px 24px 90px;
+
+        background:
+            radial-gradient(
+                ellipse 65% 45% at 50% 43%,
+                rgba(255, 255, 255, 0.055),
+                transparent 70%
+            ),
+            #111318;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+
+        width: 100%;
+        max-width: 780px;
+
+        text-align: center;
+
+        animation: hero-enter 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .logo-container {
+        position: relative;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 150px;
+        height: 150px;
+
+        margin-bottom: 24px;
+    }
+
+    .logo-halo {
+        position: absolute;
+        inset: 12px;
+
+        border-radius: 50%;
+
+        background: rgba(255, 255, 255, 0.045);
+        filter: blur(24px);
+
+        animation: halo-pulse 6s ease-in-out infinite;
+    }
+
+    .hero-logo {
+        position: relative;
+        z-index: 1;
+
+        width: 105px;
+        height: 105px;
+
+        object-fit: contain;
+
+        filter:
+            drop-shadow(0 0 18px rgba(255, 255, 255, 0.07))
+            drop-shadow(0 8px 24px rgba(0, 0, 0, 0.12));
+
+        animation:
+            logo-enter 1000ms cubic-bezier(0.16, 1, 0.3, 1) both,
+            logo-float 7s ease-in-out 1s infinite;
+    }
+
+    .eyebrow {
+        margin: 0 0 14px;
+
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+
+        color: rgba(255, 255, 255, 0.42);
+
+        animation: text-enter 800ms 180ms cubic-bezier(0.16, 1, 0.3, 1)
+            both;
+    }
+
+    h1 {
+        margin: 0;
+
+        font-size: clamp(56px, 9vw, 96px);
+        line-height: 0.95;
+
+        font-weight: 650;
+        letter-spacing: -0.07em;
+
+        color: rgba(255, 255, 255, 0.96);
+
+        animation: text-enter 800ms 260ms cubic-bezier(0.16, 1, 0.3, 1)
+            both;
+    }
+
+    .hero-description {
+        max-width: 550px;
+
+        margin: 28px auto 0;
+
+        font-size: 18px;
+        line-height: 1.65;
+
+        color: rgba(255, 255, 255, 0.5);
+
+        animation: text-enter 800ms 340ms cubic-bezier(0.16, 1, 0.3, 1)
+            both;
+    }
+
+    .hero-actions {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+
+        margin-top: 36px;
+
+        animation: text-enter 800ms 420ms cubic-bezier(0.16, 1, 0.3, 1)
+            both;
+    }
+
+    .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        min-width: 120px;
+
+        padding: 12px 20px;
+
+        border-radius: 11px;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        transition:
+            transform 200ms ease,
+            background 200ms ease,
+            border-color 200ms ease,
+            box-shadow 200ms ease;
+    }
+
+    .button:hover {
+        transform: translateY(-2px);
+    }
+
+    .primary {
+        color: #111318;
+        background: rgba(255, 255, 255, 0.94);
+
+        box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.12),
+            inset 0 1px rgba(255, 255, 255, 0.8);
+    }
+
+    .primary:hover {
+        background: #fff;
+        box-shadow:
+            0 7px 28px rgba(0, 0, 0, 0.2),
+            inset 0 1px rgba(255, 255, 255, 0.9);
+    }
+
+    .secondary {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        background: rgba(255, 255, 255, 0.035);
+
+        color: rgba(255, 255, 255, 0.8);
+
+        backdrop-filter: blur(10px);
+    }
+
+    .secondary:hover {
+        border-color: rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.07);
+    }
+
+    .ambient {
+        position: absolute;
+
+        border-radius: 50%;
+
+        pointer-events: none;
+        filter: blur(100px);
+
+        opacity: 0.35;
+    }
+
+    .ambient-one {
+        width: 360px;
+        height: 360px;
+
+        top: 15%;
+        left: 12%;
+
+        background: rgba(255, 255, 255, 0.025);
+
+        animation: ambient-one 14s ease-in-out infinite;
+    }
+
+    .ambient-two {
+        width: 420px;
+        height: 420px;
+
+        right: 8%;
+        bottom: 8%;
+
+        background: rgba(255, 255, 255, 0.02);
+
+        animation: ambient-two 17s ease-in-out infinite;
+    }
+
+    .scroll-indicator {
+        position: absolute;
+        z-index: 2;
+
+        bottom: 30px;
+        left: 50%;
+
+        width: 20px;
+        height: 30px;
+
+        transform: translateX(-50%);
+
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 20px;
+
+        opacity: 0;
+        animation: indicator-enter 900ms 1.1s ease forwards;
+    }
+
+    .scroll-indicator span {
+        position: absolute;
+
+        top: 6px;
+        left: 50%;
+
+        width: 3px;
+        height: 5px;
+
+        transform: translateX(-50%);
+
+        border-radius: 10px;
+
+        background: rgba(255, 255, 255, 0.5);
+
+        animation: scroll-dot 2s ease-in-out infinite;
+    }
+
+    .placeholder-section {
+        min-height: 50vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #111318;
+
+        color: rgba(255, 255, 255, 0.2);
+    }
+
+    @keyframes hero-enter {
+        from {
+            opacity: 0;
+            transform: translateY(22px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes logo-enter {
+        from {
+            opacity: 0;
+            transform: scale(0.82);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes logo-float {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-6px);
+        }
+    }
+
+    @keyframes halo-pulse {
+        0%,
+        100% {
+            opacity: 0.55;
+            transform: scale(0.95);
+        }
+
+        50% {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+    }
+
+    @keyframes text-enter {
+        from {
+            opacity: 0;
+            transform: translateY(14px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes indicator-enter {
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes scroll-dot {
+        0%,
+        100% {
+            opacity: 0.3;
+            transform: translate(-50%, 0);
+        }
+
+        50% {
+            opacity: 1;
+            transform: translate(-50%, 7px);
+        }
+    }
+
+    @keyframes ambient-one {
+        0%,
+        100% {
+            transform: translate(0, 0);
+        }
+
+        50% {
+            transform: translate(50px, 30px);
+        }
+    }
+
+    @keyframes ambient-two {
+        0%,
+        100% {
+            transform: translate(0, 0);
+        }
+
+        50% {
+            transform: translate(-40px, -30px);
+        }
+    }
+
+    @media (max-width: 700px) {
+        .navbar {
+            padding: 18px 20px;
+        }
+
+        nav {
+            display: none;
+        }
+
+        .hero {
+            padding: 110px 20px 80px;
+        }
+
+        .logo-container {
+            width: 130px;
+            height: 130px;
+        }
+
+        .hero-logo {
+            width: 92px;
+            height: 92px;
+        }
+
+        .hero-description {
+            font-size: 16px;
+        }
+
+        .hero-actions {
+            flex-direction: column;
+            width: min(280px, 100%);
+            margin-inline: auto;
+        }
+
+        .button {
+            width: 100%;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            scroll-behavior: auto !important;
+        }
+    }
+</style>
