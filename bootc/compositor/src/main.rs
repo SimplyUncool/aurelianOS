@@ -1,93 +1,68 @@
 // SPDX-License-Identifier: Apache-2.0
 
-use std::sync::Arc;
+mod backend;
+mod state;
 
 use smithay::{
+    backend::session::libseat::LibSeatSession,
     reexports::{
-        calloop::EventLoop,
-        wayland_server::{
-            backend::ClientData,
-            Display,
-        },
+        calloop::{EventLoop, Interest, Mode, PostAction, generic::Generic},
+        wayland_server::Display,
     },
-    wayland::{
-        compositor::{
-            CompositorClientState,
-            CompositorHandler,
-            CompositorState,
-        },
-        socket::ListeningSocketSource,
-    },
+    wayland::compositor::CompositorState,
 };
 
-struct ClientState {
-    compositor_state: CompositorClientState,
-}
-
-impl ClientData for ClientState {}
-
-struct State {
-    display: Display<State>,
-    compositor_state: CompositorState,
-}
-
-impl CompositorHandler for State {
-    fn compositor_state(&mut self) -> &mut CompositorState {
-        &mut self.compositor_state
-    }
-
-    fn client_compositor_state<'a>(
-        &self,
-        client: &'a smithay::reexports::wayland_server::Client,
-    ) -> &'a CompositorClientState {
-        &client
-            .get_data::<ClientState>()
-            .expect("missing client state")
-            .compositor_state
-    }
-
-    fn commit(
-        &mut self,
-        _surface: &smithay::reexports::wayland_server::protocol::wl_surface::WlSurface,
-    ) {
-        println!("surface committed");
-    }
-}
-
-smithay::delegate_compositor!(State);
+use crate::{
+    backend::udev::Backend,
+    state::{State, add_wayland_socket},
+};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut event_loop: EventLoop<'static, State> = EventLoop::try_new()?;
+    tracing_subscriber::fmt()
+        .with_env_filter(
+            tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| "info".into()),
+        )
+        .init();
 
+    let mut event_loop: EventLoop<'static, State> = EventLoop::try_new()?;
     let display = Display::<State>::new()?;
     let display_handle = display.handle();
 
+    let (session, session_notifier) = LibSeatSession::new()?;
+    let (backend, drm_notifier) = Backend::initialize(session, &display_handle)?;
     let compositor_state = CompositorState::new::<State>(&display_handle);
-
-    let mut state = State {
-        display,
+    let state = State {
+        display_handle: display_handle.clone(),
         compositor_state,
+        backend,
     };
 
-    let socket = ListeningSocketSource::new_auto()?;
+    add_wayland_socket(&event_loop)?;
+    event_loop.handle().insert_source(
+        Generic::new(display, Interest::READ, Mode::Level),
+        |_, display, state| {
+            // Safety: the calloop source owns this Display for the lifetime of the event loop.
+            unsafe {
+                display.get_mut().dispatch_clients(state)?;
+            }
+            Ok(PostAction::Continue)
+        },
+    )?;
+    event_loop
+        .handle()
+        .insert_source(drm_notifier, |event, _, state| {
+            state.backend.on_drm_event(event);
+        })?;
+    event_loop
+        .handle()
+        .insert_source(session_notifier, |event, _, state| {
+            state.backend.on_session_event(event);
+        })?;
 
-    event_loop.handle().insert_source(socket, |stream, _, state| {
-        state
-            .display
-            .handle()
-            .insert_client(
-                stream,
-                Arc::new(ClientState {
-                    compositor_state: CompositorClientState::default(),
-                }),
-            )
-            .expect("failed to insert Wayland client");
-    })?;
-
-    println!("aurelianOS Wayland compositor starting...");
-
+    let mut state = state;
+    tracing::info!("aurelianOS compositor ready; dispatching Wayland clients");
     loop {
         event_loop.dispatch(None, &mut state)?;
-        state.display.flush_clients()?;
+        state.display_handle.flush_clients()?;
     }
 }
