@@ -1,0 +1,57 @@
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="512" height="512"
+     viewBox="70 50 372 385">
+  <defs>
+    <linearGradient id="lower" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#25234D"/>
+      <stop offset="100%" stop-color="#111B42"/>
+    </linearGradient>
+    <linearGradient id="core" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#AE7BFF"/>
+      <stop offset="52%" stop-color="#6949E9"/>
+      <stop offset="100%" stop-color="#237EF3"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ECE5FF" stop-opacity=".85"/>
+      <stop offset="55%" stop-color="#9DA8EE" stop-opacity=".66"/>
+      <stop offset="100%" stop-color="#4468CF" stop-opacity=".79"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFE9AD"/>
+      <stop offset="100%" stop-color="#DEA03F"/>
+    </linearGradient>
+    <clipPath id="left-half">
+      <rect x="0" y="0" width="256" height="280"/>
+    </clipPath>
+    <path id="ring" fill-rule="evenodd"
+      d="M256 75 L404 154 L404 190
+         L256 272 L108 190 L108 154 Z
+         M256 119 L149 175
+         L256 231 L363 175 Z"/>
+  </defs>
+
+  <use href="#ring" transform="translate(0 142)"
+       fill="url(#lower)"/>
+  <path d="M108 332 L256 414 L404 332"
+        fill="none" stroke="#5579E9"
+        stroke-width="3" opacity=".8"/>
+
+  <use href="#ring" transform="translate(0 72)"
+       fill="url(#core)"/>
+  <path d="M108 262 L256 344 L404 262"
+        fill="none" stroke="#B18CFF"
+        stroke-width="4"/>
+
+  <use href="#ring" fill="url(#glass)"/>
+  <use href="#ring" fill="url(#gold)"
+       clip-path="url(#left-half)"/>
+
+  <path d="M108 154 L256 75 L404 154
+           L363 175 L256 119 L149 175 Z"
+        fill="#FFFFFF" opacity=".12"/>
+
+  <path d="M108 190 L256 272 L404 190"
+        fill="none" stroke="#E5E2FF"
+        stroke-width="2.5" opacity=".72"/>
+</svg>
