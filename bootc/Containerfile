@@ -1,5 +1,27 @@
 FROM quay.io/fedora/fedora-bootc:latest
 
+RUN dnf install -y \
+    cargo \
+    rust \
+    gcc \
+    pkgconf-pkg-config \
+    libinput-devel \
+    libxkbcommon-devel \
+    libudev-devel \
+    libseat-devel \
+    mesa-libEGL-devel \
+    mesa-libGLES-devel \
+    mesa-libgbm-devel \
+    libdrm-devel \
+    && dnf clean all
+
+COPY compositor /tmp/aurelian-compositor
+
+RUN cd /tmp/aurelian-compositor && \
+    cargo build --release --locked && \
+    install -Dm755 target/release/compositor /usr/local/bin/aurelian-compositor && \
+    rm -rf /tmp/aurelian-compositor
+
 RUN useradd -m -G wheel -s /bin/bash mohamed && \
     echo 'mohamed:dev' | chpasswd
 
