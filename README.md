@@ -8,7 +8,8 @@
 
 <p align="center">
   An experimental Linux desktop operating system for x86_64 PCs.<br>
-  Its custom Wayland compositor and purpose-built shell are being developed as parts of one cohesive desktop experience.
+  It aims to pair the compatibility, familiarity, and graphical management Windows users expect with the efficiency, flexibility, transparency, and openness of Linux.<br>
+  A custom Wayland compositor and purpose-built shell are being developed as one cohesive desktop experience.
 </p>
 
 <p align="center">
@@ -29,7 +30,9 @@
 > [!IMPORTANT]
 > **aurelianOS is experimental.** Major desktop components remain incomplete, and development builds are not intended as a production daily-driver OS. Interfaces and architecture may change as the system is built.
 
-aurelianOS aims to make ordinary desktop work and system administration graphical, while keeping the terminal and the underlying Linux system available to advanced users. The project is building its own Wayland compositor and desktop shell rather than assembling an existing desktop environment with a new theme.
+aurelianOS aims to make ordinary desktop work and system administration graphical, while keeping the terminal and the underlying Linux system available to advanced users. It is intended to feel immediately understandable to ordinary Windows users and familiar to Windows power users, with its own visual identity and Linux-native architecture. The project is building its own Wayland compositor and desktop shell rather than assembling an existing desktop environment with a new theme.
+
+The guiding principle is simple: ordinary users should be able to operate and manage the computer through graphical interfaces; power users should be able to inspect, reproduce, script, and override the system operations behind those interfaces. Learning traditional Linux administration should be an option, not a prerequisite for using the desktop.
 
 The current repository contains a Fedora bootc image definition, a Rust/Smithay compositor, and a separate Rust/Slint shell prototype. Atomic image-based updates, Flatpak as the primary application delivery path, gaming, and easier Windows software compatibility are **design goals**; they are not finished desktop features.
 
@@ -37,9 +40,9 @@ The current repository contains a Fedora bootc image definition, a Rust/Smithay 
 
 | **Desktop first** | **Atomic and recoverable** | **Native Wayland** |
 | :--- | :--- | :--- |
-| **Goal** · Graphical settings and everyday administration without requiring a terminal. | **Direction** · Fedora bootc is the current image foundation; an update and rollback experience remains to be built. | **In code** · A custom Rust compositor uses Smithay 0.7 and serves Wayland clients. |
+| **Goal** · Graphical settings and everyday administration without requiring a terminal, with advanced controls for power users. | **Direction** · Fedora bootc is the current image foundation; an update and rollback experience remains to be built. | **In code** · A custom Rust compositor uses Smithay 0.7 and serves Wayland clients. |
 | **Gaming** | **Windows compatibility** | **Linux underneath** |
-| **Goal** · Make gaming a first-class desktop design consideration. | **Long-term goal** · Integrate Wine/Proton workflows for Windows applications and games. | **Principle** · Preserve Linux tools, services, filesystems, and terminal access for people who want them. |
+| **Goal** · Make gaming a first-class desktop design consideration. | **Long-term goal** · Make Windows applications easier to install and manage through integrated Wine/Proton workflows. | **Principle** · Preserve Linux tools, services, filesystems, containers, scripting, and terminal access. |
 
 ## Architecture
 
@@ -103,6 +106,20 @@ The standalone Slint shell explores a wallpaper-forward layout with a floating d
 
 The intended desktop extends that language with cohesive graphical settings, subtle motion, scalable layouts, HiDPI and multi-monitor support. Real backdrop blur and other glass effects are intended to be rendered by the compositor with attention to GPU cost and damage tracking. Those effects are still planned.
 
+### Familiar workflows, Linux-native control
+
+The intended experience serves ordinary desktop users, Windows users moving to Linux, and power users. Familiar workflows should reduce the need to relearn basic computer use, while advanced graphical controls and the terminal remain available for deeper administration. Familiarity is a starting point for the interface, not a plan to copy Windows internals or visual design.
+
+Graphical administration is a **long-term design goal**, not a feature of the current shell prototype. A future Settings action such as disabling Wi-Fi should request a privileged operation through a defined system-management layer. The GUI and an equivalent terminal operation should use the same underlying Linux services or APIs; where useful, the GUI could show how to inspect or reproduce that operation. This does not require opening a terminal for each action.
+
+For Windows power users, the longer-term plan includes a structured, hierarchical configuration model and advanced editor inspired by Registry Editor, plus declarative machine and user policies inspired by Group Policy. These would coordinate the actual Linux components underneath, rather than reproduce the Windows Registry or Group Policy. Ordinary settings and advanced administration should be clearly separated, with graphical access to services, startup, devices, storage, networking, users, security, updates, and recovery.
+
+### Applications and user choice
+
+The long-term Windows compatibility goal is a path from **double-click `Setup.exe` → Install** to an integrated application, where feasible. aurelianOS would manage Wine/Proton runners, prefixes, DXVK/VKD3D, application-specific settings, and fallbacks, while letting advanced users inspect and override those choices. Linux-native applications and Windows applications should eventually appear in one coherent app experience rather than requiring ordinary users to manage Flatpak, RPM, and Wine as separate worlds. None of this compatibility experience is implemented today.
+
+The Linux foundation remains central: Fedora bootc provides the current image direction, while atomic updates, recovery, Flatpak delivery, development tools, containers, systemd integration, and terminal access inform the planned desktop. The design should stay lean, avoid unnecessary preinstalled software and background work, keep updates predictable and user-controlled, respect privacy, and avoid promotional system UI or unnecessary online-account dependencies. Useful advanced controls should remain accessible; users should stay in control of their machines.
+
 ![Purple and blue abstract wallpaper bundled with the standalone Slint shell prototype](assets/wallpaper.jpg)
 
 <p align="center"><sub>Bundled prototype wallpaper · visual asset, not a screenshot of an integrated desktop session</sub></p>
@@ -159,6 +176,7 @@ The [Slint shell](bootc/shell) is also a separate Cargo project. There is not ye
 | :--- | :--- |
 | Graphical administration, settings, hardware controls, installation, and onboarding | Notifications, application management, Flatpak integration, and a cohesive first-party interface |
 | Atomic update and rollback UX, recovery, and image distribution | Gaming workflows, future Wine/Proton integration, and broader application compatibility |
+| Linux-native hierarchical configuration and machine/user policy tooling | Unified Linux and Windows app installation with inspectable compatibility settings |
 | Wider hardware validation and maintenance | Multi-monitor behavior, HiDPI refinement, accessibility, and internationalization |
 
 These are directions, not release commitments. No release date or compatibility guarantee is implied.
